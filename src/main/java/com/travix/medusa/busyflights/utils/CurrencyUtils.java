@@ -11,14 +11,14 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class CurrencyUtils {
-
+	private RoundingMode roundingMode = RoundingMode.HALF_UP;
 	/**
 	 * 
 	 * @param price
 	 * @return BigDecimal value of the final fare
 	 */
 	public BigDecimal calculateFare(double price) {
-		return BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_EVEN);
+		return BigDecimal.valueOf(price).setScale(2, roundingMode);
 	}
 
 	/**
@@ -33,8 +33,8 @@ public class CurrencyUtils {
 	 */
 	public BigDecimal calculateFare(double basePrice, double tax, double discount) {
 		BigDecimal priceWithTax = BigDecimal.valueOf(basePrice + tax);
-		BigDecimal discountValue = BigDecimal.valueOf(discount).divide(BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_EVEN));
-		return priceWithTax.subtract(priceWithTax.multiply(discountValue)).setScale(2, RoundingMode.HALF_EVEN);
+		BigDecimal discountValue = BigDecimal.valueOf(discount).divide(BigDecimal.valueOf(100).setScale(2, roundingMode));
+		return priceWithTax.subtract(priceWithTax.multiply(discountValue)).setScale(2, roundingMode);
 
 	}
 
