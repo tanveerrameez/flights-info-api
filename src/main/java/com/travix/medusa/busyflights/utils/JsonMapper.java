@@ -45,11 +45,4 @@ public class JsonMapper {
 		return mapper.writeValueAsString(object);
 	}
 
-	// public static void printJson(final Object object) {
-	// try {
-	// System.out.println(mapper.writeValueAsString(object));
-	// } catch (final JsonProcessingException jpe) {
-	// jpe.printStackTrace();
-	// }
-	// }
 }

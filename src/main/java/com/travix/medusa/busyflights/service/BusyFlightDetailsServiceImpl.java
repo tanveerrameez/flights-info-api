@@ -60,7 +60,7 @@ public class BusyFlightDetailsServiceImpl implements BusyFlightDetailsService {
 
 		ExecutorService executorService = null;
 		// The set of response should be sorted by fare (ascending)
-		SortedSet<BusyFlightsResponse> response = new TreeSet<>(busyFlightsComparator);// Comparator.comparing(BusyFlightsResponse::getFare));
+		SortedSet<BusyFlightsResponse> response = new TreeSet<>(busyFlightsComparator);
 		try {
 			List<Supplier> suppliers = supplierLoaderService.getActiveFlightSuppliers();
 			if (!CollectionUtils.isEmpty(suppliers)) {

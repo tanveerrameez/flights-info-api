@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.travix.medusa.busyflights.domain.Supplier;
 import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
 import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsResponse;
@@ -47,8 +46,7 @@ public class GetFlightsFromSupplierTask<T, U> implements Callable<Set<BusyFlight
 
 		T convertedRequest = supplier.getConverter().convertRequest(request);
 		String responseString = restTemplateService.post(supplier.getFlightsUrl(), convertedRequest);
-		Set<BusyFlightsResponse> busyFlightsResponse = convertToBusyFlightsResponse(supplier, responseString);
-		return busyFlightsResponse;
+		return convertToBusyFlightsResponse(supplier, responseString);
 	}
 
 	/**
@@ -59,8 +57,7 @@ public class GetFlightsFromSupplierTask<T, U> implements Callable<Set<BusyFlight
 	 * @return
 	 * @throws IOException
 	 */
-	private Set<BusyFlightsResponse> convertToBusyFlightsResponse(Supplier<T, U> supplier, String responseString)
-			throws IOException, JsonProcessingException {
+	private Set<BusyFlightsResponse> convertToBusyFlightsResponse(Supplier<T, U> supplier, String responseString) throws IOException {
 		List<U> responseList = supplier.getConverter().deserialiseJson(responseString).orElse(Collections.emptyList());
 
 		final Set<BusyFlightsResponse> busyFlightsResponseList = new HashSet<>();
