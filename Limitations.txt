@@ -1,0 +1,29 @@
+Limitations:
+
+1. Tests are limited and mainly confined to BusyFlightDetailsServiceTest,
+
+ GetFlightsFromSupplierTaskTest and BusyFlightDetailsController due to paucity of time. Test coverage will need to increased.
+2. The test cases are limited and checking only certain happy and edge conditons. 
+3. The data conversions are done with dates as String types (as originally). The dates should be converted to java Data types (like java.time.Instant in case of ToughJetResponse, java.time.LocalDateTime in case of CrazyAirResponse). So extensive data conversion test is required and not yet done.
+
+4. Currently there is no validation that outbound date should be same or earlier than inbound date
+5. One way travel not tested (i.e with only outbound date where inbound date is not provided)
+6. Basic data validations are done. More is required.
+7. Error handling and logging can be improved
+8. Code can be refactored and simplified.
+
+Assumptions: 
+
+1. Crazy Air and ToughJet Api are provided locally with api returning dummy data. The dummy data returned does not take into account the input BusyFlightRequest data. In production, this would be external apis that return data based on the input BusyFlightRequest data.
+So no validation is made whether the results returned by the apis is consistent with the input parameters. Basically testing whether the Crazy Air and ToughJet API is returning correct data is not done.
+2. Api to get the flights are provided using both GET and POST
+
+How to run:
+1. Download and unzip the zipped file
+2. Open the spring boot project in a editor (IntelliJ, Eclipse etc)
+3. Run the com.travix.medusa.busyflights.BusyFlightsApplication as a Sprihg Boot application.
+4. You can access the swagger specification: http://localhost:8080/swagger-ui.html
+5. To access the api using browser for GET: http://localhost:8080/busyflights/flights?origin=FUE&destination=LGW&departureDate=2021-12-03&returnDate=2021-12-13&numberOfPassengers=2
+6. To access the api using browser for POST: http://localhost:8080/busyflights/flights
+with body:
+{"origin":"FUE","destination":"LGW","departureDate":"2021-12-03","returnDate":"2021-12-09","numberOfPassengers":2}
