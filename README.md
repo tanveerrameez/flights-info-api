@@ -24,7 +24,15 @@ Limitations:
 Assumptions: 
 1. Crazy Air and ToughJet Api are provided locally with api returning dummy data. the data does not take into account the input BusyFlightRequest data. In production, this would be external apis that return data based on the input BusyFlightRequest data.
 
-
+How to run:
+1. Clone the code from https://github.com/tanveerrameez/interview-test
+2. Open the spring boot project in a editor (IntelliJ, Eclipse etc)
+3. Run the com.travix.medusa.busyflights.BusyFlightsApplication as a Sprihg Boot application.
+4. You can access the swagger specification: http://localhost:8080/swagger-ui.html
+5. To access the api using browser for GET: http://localhost:8080/busyflights/flights?origin=FUE&destination=LGW&departureDate=2021-12-03&returnDate=2021-12-13&numberOfPassengers=2
+6. To access the api using browser for POST: http://localhost:8080/busyflights/flights
+with body:
+{"origin":"FUE","destination":"LGW","departureDate":"2021-12-03","returnDate":"2021-12-09","numberOfPassengers":2}
 
 --------------------------------------------------------------
 
