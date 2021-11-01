@@ -38,7 +38,7 @@ with body:
 
 
 
-**Travix - Problem to be solved**
+** Problem to be solved**
 
 **Background:**
 
