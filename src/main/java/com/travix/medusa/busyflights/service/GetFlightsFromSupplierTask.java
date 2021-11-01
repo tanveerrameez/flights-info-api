@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.service;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -63,15 +64,22 @@ public class GetFlightsFromSupplierTask<T, U> implements Callable<Set<BusyFlight
 		final Set<BusyFlightsResponse> busyFlightsResponseList = new HashSet<>();
 
 		responseList.forEach(response -> {
-			BusyFlightsResponse busyFlightsResponse = supplier.getConverter().convertResponse(response);
-			// only add valid response (i..e no missing mandatory fields or invalid values) to the list
+			BusyFlightsResponse busyFlightsResponse = null;
 			try {
+				busyFlightsResponse = supplier.getConverter().convertResponse(response);
+
+				// only add valid response (i..e no missing mandatory fields or invalid values) to the list
 				ValidationUtils.validate(busyFlightsResponse);
 				busyFlightsResponseList.add(busyFlightsResponse);
+
 			} catch (ValidationException ve) {
-				// log which responses failed with the errors
+				// log which responses failed with the errors, and continue for next conversion
 				log.error(new ErrorMessages(busyFlightsResponse, ve.getMessages()));
+			} catch (Exception e) {
+				// exception while converting response, log it and continue for next conversion
+				log.error(new ErrorMessages(busyFlightsResponse, Arrays.asList(e.getMessage())));
 			}
+
 		});
 		return busyFlightsResponseList;
 	}
